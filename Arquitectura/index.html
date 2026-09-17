@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quiz de Arquitectura de Computadoras</title>
+  <style>
+    :root {
+      --ink: #19212a;
+      --muted: #61707f;
+      --paper: #fffaf2;
+      --line: #d9c7ad;
+      --accent: #c73737;
+      --accent-dark: #8f2323;
+      --ok: #1f8a5b;
+      --bad: #b83b48;
+      --chip: #263547;
+      --gold: #f0b84a;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      background:
+        linear-gradient(rgba(255,255,255,.78), rgba(255,255,255,.78)),
+        repeating-linear-gradient(0deg, #f7eddd 0 33px, #ead9c3 34px 35px);
+      display: grid;
+      place-items: center;
+      padding: 18px;
+    }
+
+    main {
+      width: min(100%, 460px);
+      background: var(--paper);
+      border: 2px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 18px 45px rgba(57, 39, 22, .18);
+      overflow: hidden;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #fcf0de, #fffaf2 58%, #f9e1d8);
+      border-bottom: 2px solid var(--line);
+      padding: 18px 18px 14px;
+      display: grid;
+      grid-template-columns: 1fr 86px;
+      gap: 12px;
+      align-items: center;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.45rem;
+      line-height: 1.12;
+      color: var(--accent-dark);
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .chip-art {
+      width: 86px;
+      height: 86px;
+    }
+
+    .panel {
+      padding: 18px;
+    }
+
+    .topline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .progress {
+      height: 9px;
+      background: #eadfce;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 18px;
+    }
+
+    .progress span {
+      display: block;
+      height: 100%;
+       width: 0;
+      background: linear-gradient(90deg, var(--accent), var(--gold));
+      transition: width .25s ease;
+    }
+
+    .topic {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--accent-dark);
+      font-weight: 700;
+      font-size: .86rem;
+      margin-bottom: 10px;
+    }
+
+    .question {
+      margin: 0 0 16px;
+      min-height: 74px;
+      font-size: 1.16rem;
+      line-height: 1.3;
+      font-weight: 700;
+    }
+
+    .answers {
+      display: grid;
+      gap: 10px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 8px;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .answer {
+      width: 100%;
+      min-height: 52px;
+      padding: 12px 14px;
+      color: var(--ink);
+      background: #fff;
+      border: 2px solid #e5d6c2;
+      text-align: left;
+      transition: transform .16s ease, border-color .16s ease, background .16s ease;
+    }
+
+    .answer:active {
+      transform: scale(.99);
+    }
+
+    .answer.correct {
+      background: #e9f7ef;
+      border-color: var(--ok);
+    }
+
+    .answer.wrong {
+      background: #fdebed;
+      border-color: var(--bad);
+    }
+
+    .answer:disabled {
+      cursor: default;
+    }
+
+    .feedback {
+      min-height: 50px;
+      margin: 14px 0 0;
+      color: var(--muted);
+      line-height: 1.35;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .primary,
+    .secondary {
+      min-height: 46px;
+      padding: 0 16px;
+      font-weight: 700;
+    }
+
+    .primary {
+      flex: 1;
+      background: var(--accent);
+      color: white;
+    }
+
+    .secondary {
+      background: #eadfce;
+      color: var(--ink);
+    }
+
+    .result {
+      text-align: center;
+      padding: 12px 0 4px;
+    }
+
+    .score {
+      display: inline-grid;
+      place-items: center;
+      width: 116px;
+      height: 116px;
+      border-radius: 50%;
+      background: var(--chip);
+      color: white;
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 14px;
+      box-shadow: inset 0 0 0 8px #34475d;
+    }
+
+    .hide {
+      display: none;
+    }
+
+    @media (max-width: 360px) {
+      body {
+        padding: 10px;
+      }
+
+      .hero {
+        grid-template-columns: 1fr 68px;
+        padding: 15px;
+      }
+
+      .chip-art {
+        width: 68px;
+        height: 68px;
+      }
+
+      .question {
+        font-size: 1.04rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero" aria-label="Encabezado del quiz">
+      <div>
+        <h1>Quiz de Arquitectura</h1>
+        <p class="subtitle">10 preguntas rápidas sobre los 6 temas de la investigación.</p>
+      </div>
+      <svg class="chip-art" viewBox="0 0 120 120" role="img" aria-label="Ilustración de chip">
+        <rect x="30" y="30" width="60" height="60" rx="8" fill="#263547"/>
+        <rect x="43" y="43" width="34" height="34" rx="5" fill="#f0b84a"/>
+        <path d="M18 38h16M18 52h16M18 68h16M18 82h16M86 38h16M86 52h16M86 68h16M86 82h16M38 18v16M52 18v16M68 18v16M82 18v16M38 86v16M52 86v16M68 86v16M82 86v16" stroke="#263547" stroke-width="7" stroke-linecap="round"/>
+        <path d="M51 60h18M60 51v18" stroke="#8f2323" stroke-width="6" stroke-linecap="round"/>
+      </svg>
+    </section>
+
+    <section class="panel" id="quiz">
+      <div class="topline">
+        <span id="count">Pregunta 1 de 10</span>
+        <strong id="points">0 pts</strong>
+      </div>
+      <div class="progress" aria-hidden="true"><span id="bar"></span></div>
+      <div class="topic" id="topic"></div>
+      <p class="question" id="question"></p>
+      <div class="answers" id="answers"></div>
+      <p class="feedback" id="feedback"></p>
+      <div class="actions">
+        <button class="secondary" id="restart" type="button">Reiniciar</button>
+        <button class="primary" id="next" type="button" disabled>Siguiente</button>
+      </div>
+    </section>
+
+    <section class="panel result hide" id="result">
+      <div class="score" id="finalScore"></div>
+      <h2 id="resultTitle">Resultado</h2>
+      <p class="feedback" id="resultText"></p>
+      <button class="primary" id="playAgain" type="button">Jugar otra vez</button>
+    </section>
+  </main>
+
+  <script>
+    const questions = [
+      {
+        topic: "Arquitectura de cómputo",
+        text: "¿Qué describe la arquitectura de cómputo?",
+        answers: [
+          "La organización del hardware y cómo trabajan juntos sus componentes",
+          "Solamente el diseño exterior de una computadora",
+          "El sistema de archivos del disco"
+        ],
+        correct: 0,
+        note: "Organiza CPU, memoria, buses y entrada/salida para procesar información."
+      },
+      {
+        topic: "Arquitectura de cómputo",
+        text: "¿Qué componente ejecuta instrucciones y procesa datos?",
+        answers: ["Memoria RAM", "CPU", "Bus"],
+        correct: 1,
+        note: "La CPU ejecuta los programas y procesa los datos."
+      },
+      {
+        topic: "Arquitectura CPU",
+        text: "¿Qué elementos internos principales aparecen dentro de un procesador?",
+        answers: [
+          "Monitor, teclado e impresora",
+          "Unidad de control, ALU y registros",
+          "Disco duro, USB y bocinas"
+        ],
+        correct: 1,
+        note: "La unidad de control, la ALU y los registros coordinan la ejecución."
+      },
+      {
+        topic: "Arquitectura CPU",
+        text: "¿Qué busca la arquitectura RISC?",
+        answers: [
+          "Usar instrucciones más simples y rápidas",
+          "Eliminar la memoria caché",
+          "Guardar datos solo en memoria ROM"
+        ],
+        correct: 0,
+        note: "RISC usa instrucciones sencillas para ejecutarlas de forma eficiente."
+      },
+      {
+        topic: "Tipos de memoria",
+        text: "¿Qué característica tiene la memoria RAM?",
+        answers: [
+          "Guarda datos de forma temporal y se borra al apagar",
+          "Solo contiene información fija de arranque",
+          "Es un dispositivo de salida"
+        ],
+        correct: 0,
+        note: "La RAM almacena temporalmente datos y programas en uso."
+      },
+      {
+        topic: "Tipos de memoria",
+        text: "¿Para qué sirve la memoria caché?",
+        answers: [
+          "Para mostrar imágenes en el monitor",
+          "Para guardar información usada con frecuencia por el procesador",
+          "Para reemplazar todos los dispositivos de almacenamiento"
+        ],
+        correct: 1,
+        note: "La caché es rápida y ayuda a mejorar el rendimiento."
+      },
+      {
+        topic: "Entrada y salida",
+        text: "¿Qué permite la entrada y salida en una computadora?",
+        answers: [
+          "Comunicar el sistema con dispositivos externos",
+          "Aumentar el tamaño de los registros",
+          "Convertir CISC en RISC"
+        ],
+        correct: 0,
+        note: "La E/S permite introducir datos y recibir resultados."
+      },
+      {
+        topic: "Registros",
+        text: "¿Qué son los registros?",
+        answers: [
+          "Almacenamientos pequeños y rápidos dentro de la CPU",
+          "Programas instalados en el disco",
+          "Dispositivos externos de entrada"
+        ],
+        correct: 0,
+        note: "Guardan temporalmente datos, direcciones, instrucciones y resultados."
+      },
+      {
+        topic: "Registros",
+        text: "¿Qué guarda el contador de programa o PC?",
+        answers: [
+          "La dirección de la siguiente instrucción",
+          "El sonido de las bocinas",
+          "Los archivos permanentes del usuario"
+        ],
+        correct: 0,
+        note: "El PC indica qué instrucción debe ejecutar después el procesador."
+      },
+      {
+        topic: "Taxonomía de Flynn",
+        text: "¿Qué categoría ejecuta distintas instrucciones sobre distintos datos al mismo tiempo?",
+        answers: ["SISD", "SIMD", "MIMD"],
+        correct: 2,
+        note: "MIMD es común en sistemas con varios procesadores o núcleos."
+      }
+    ];
+
+    const els = {
+      quiz: document.querySelector("#quiz"),
+      result: document.querySelector("#result"),
+      count: document.querySelector("#count"),
+      points: document.querySelector("#points"),
+      bar: document.querySelector("#bar"),
+      topic: document.querySelector("#topic"),
+      question: document.querySelector("#question"),
+      answers: document.querySelector("#answers"),
+      feedback: document.querySelector("#feedback"),
+      next: document.querySelector("#next"),
+      restart: document.querySelector("#restart"),
+      finalScore: document.querySelector("#finalScore"),
+      resultTitle: document.querySelector("#resultTitle"),
+      resultText: document.querySelector("#resultText"),
+      playAgain: document.querySelector("#playAgain")
+      };
+
+    let index = 0;
+    let score = 0;
+    let locked = false;
+
+    function renderQuestion() {
+      const item = questions[index];
+      locked = false;
+      els.count.textContent = `Pregunta ${index + 1} de ${questions.length}`;
+      els.points.textContent = `${score} pts`;
+      els.bar.style.width = `${(index / questions.length) * 100}%`;
+      els.topic.textContent = item.topic;
+      els.question.textContent = item.text;
+      els.feedback.textContent = "";
+      els.next.disabled = true;
+      els.answers.innerHTML = "";
+
+      item.answers.forEach((answer, answerIndex) => {
+        const button = document.createElement("button");
+        button.className = "answer";
+        button.type = "button";
+        button.textContent = answer;
+        button.addEventListener("click", () => choose(answerIndex));
+        els.answers.appendChild(button);
+      });
+    }
+
+    function choose(answerIndex) {
+      if (locked) return;
+      locked = true;
+      const item = questions[index];
+      const buttons = [...document.querySelectorAll(".answer")];
+      buttons.forEach((button, buttonIndex) => {
+        button.disabled = true;
+        if (buttonIndex === item.correct) button.classList.add("correct");
+        if (buttonIndex === answerIndex && answerIndex !== item.correct) button.classList.add("wrong");
+      });
+
+      if (answerIndex === item.correct) {
+        score += 1;
+        els.points.textContent = `${score} pts`;
+        els.feedback.textContent = `Correcto. ${item.note}`;
+      } else {
+        els.feedback.textContent = `Respuesta correcta: ${item.answers[item.correct]}. ${item.note}`;
+      }
+      els.next.disabled = false;
+      els.next.textContent = index === questions.length - 1 ? "Ver resultado" : "Siguiente";
+    }
+
+    function showResult() {
+      els.quiz.classList.add("hide");
+      els.result.classList.remove("hide");
+      els.finalScore.textContent = `${score}/10`;
+      els.resultTitle.textContent = score >= 8 ? "Muy buen dominio" : score >= 6 ? "Buen avance" : "A repasar";
+      els.resultText.textContent = score >= 8
+        ? "Ya tienes claros los conceptos principales de los seis temas."
+        : "Vuelve a jugar y revisa las explicaciones breves después de cada respuesta.";
+    }
+
+    function restart() {
+      index = 0;
+      score = 0;
+      els.next.textContent = "Siguiente";
+      els.result.classList.add("hide");
+      els.quiz.classList.remove("hide");
+      renderQuestion();
+    }
+
+    els.next.addEventListener("click", () => {
+      if (index === questions.length - 1) {
+        els.bar.style.width = "100%";
+        showResult();
+      } else {
+        index += 1;
+        renderQuestion();
+      }
+    });
+
+    els.restart.addEventListener("click", restart);
+    els.playAgain.addEventListener("click", restart);
+    renderQuestion();
+  </script>
+</body>
+</html>
