@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Cache Quest</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     MENÚ PRINCIPAL
+===================================================== -->
+
+<div id="menu" class="screen active">
+
+    <div class="logo">
+
+        <div class="logo-icon">
+            🧠
+        </div>
+
+        <h1>
+            Cache Quest
+        </h1>
+
+        <p>
+            La aventura por la memoria caché
+        </p>
+
+    </div>
+
+
+    <div class="menu-box">
+
+        <button
+            onclick="startGame()"
+            class="main-button"
+        >
+            🎮 JUGAR
+        </button>
+
+
+        <button
+            onclick="showInstructions()"
+            class="secondary-button"
+        >
+            📖 INSTRUCCIONES
+        </button>
+
+
+        <div class="best-score">
+
+            🏆 Mejor puntuación:
+
+            <span id="bestScoreMenu">
+                0
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     INSTRUCCIONES
+===================================================== -->
+
+<div id="instructions" class="screen">
+
+    <div class="instructions-box">
+
+        <h2>
+            📖 ¿Cómo jugar?
+        </h2>
+
+
+        <p>
+            Explora el mapa y decide en qué zona
+            quieres comenzar.
+        </p>
+
+
+        <div class="instruction-list">
+
+            <div>
+                🟦 Muévete con las flechas del teclado,
+                WASD o los controles.
+            </div>
+
+            <div>
+                🧠 Puedes elegir cualquiera de las
+                10 zonas activas.
+            </div>
+
+            <div>
+                ✅ Si aciertas ganas puntos.
+            </div>
+
+            <div>
+                ❌ Si fallas pierdes una vida.
+            </div>
+
+            <div>
+                🚫 Después de responder, la zona
+                queda desactivada.
+            </div>
+
+            <div>
+                🔒 La Zona Secreta permanece bloqueada
+                hasta completar las 10 zonas.
+            </div>
+
+            <div>
+                🏆 Completa la Zona Secreta para
+                terminar el juego.
+            </div>
+
+        </div>
+
+
+        <button
+            onclick="backToMenu()"
+            class="main-button"
+        >
+            ← VOLVER
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     JUEGO
+===================================================== -->
+
+<div id="game" class="screen">
+
+
+    <!-- BARRA SUPERIOR -->
+
+    <div class="top-bar">
+
+        <div class="game-title">
+
+            ⚡ CACHE QUEST
+
+        </div>
+
+
+        <div class="stats">
+
+            <div>
+                ⭐
+                <span id="score">
+                    0
+                </span>
+            </div>
+
+
+            <div>
+                ❤️
+                <span id="lives">
+                    3
+                </span>
+            </div>
+
+
+            <div>
+                🧠
+                <span id="completedCount">
+                    0
+                </span>/10
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- INFORMACIÓN -->
+
+    <div class="level-info">
+
+        <h2 id="levelTitle">
+
+            🧠 Explora Cache Quest
+
+        </h2>
+
+
+        <p id="levelDescription">
+
+            Elige cualquiera de las 10 zonas
+            para comenzar.
+
+        </p>
+
+
+        <div class="progress-container">
+
+            <div id="progressBar"></div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         MAPA
+    ================================================= -->
+
+    <div id="gameArea">
+
+
+        <!-- JUGADOR -->
+
+        <div id="player">
+            🟦
+        </div>
+
+
+
+        <!-- =================================================
+             ZONA 1
+        ================================================= -->
+
+        <div
+            class="zone active-zone"
+            id="zone-0"
+            data-level="0"
+            data-completed="false"
+            style="left: 3%; top: 6%;"
+        >
+
+            <div class="zone-number">
+                1
+            </div>
+
+            <div class="zone-icon">
+                🧠
+            </div>
+
+            <div class="zone-name">
+                CPU
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             ZONA 2
+        ================================================= -->
+
+        <div
+            class="zone active-zone"
+            id="zone-1"
+            data-level="1"
+            data-completed="false"
+            style="left: 28%; top: 6%;"
+        >
+
+            <div class="zone-number">
+                2
+            </div>
+
+            <div class="zone-icon">
+                ⚡
+            </div>
+
+            <div class="zone-name">
+                Velocidad
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             ZONA 3
+        ================================================= -->
+
+        <div
+            class="zone active-zone"
+            id="zone-2"
+            data-level="2"
+            data-completed="false"
+            style="left: 53%; top: 6%;"
+        >
+
+            <div class="zone-number">
+                3
+            </div>
+
+            <div class="zone-icon">
+                🎯
+            </div>
+
+            <div class="zone-name">
+                Cache Hit
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             ZONA 4
+        ================================================= -->
+
+        <div
+            class="zone active-zone"
+            id="zone-3"
+            data-level="3"
+            data-completed="false"
+            style="left: 78%; top: 6%;"
+        >
+
+            <div class="zone-number">
+                4
+            </div>
+
+            <div class="zone-icon">
+                🚫
+            </div>
+
+            <div class="zone-name">
+                Cache Miss
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             ZONA 5
+        ================================================= -->
+
+        <div
+            class="zone active-zone"
+            id="zone-4"
+            data-level="4"
+            data-completed="false"
+            style="left: 5%; top: 40%;"
+        >
+
+            <div class="zone-number">
+                5
+            </div>
+
+            <div class="zone-icon">
+                🗺️
+            </div>
+
+            <div class="zone-name">
+                Mapeo Directo
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             ZONA 6
+        ================================================= -->
+
+        <div
+            class="zone active-zone"
+            id="zone-5"
+            data-level="5"
+            data-completed="false"
+            style="left: 36%; top: 40%;"
+        >
+
+            <div class="zone-number">
+                6
+            </div>
+
+            <div class="zone-icon">
+                🔄
+            </div>
+
+            <div class="zone-name">
+                Asociativo
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             ZONA 7
+        ================================================= -->
+
+        <div
+            class="zone active-zone"
+            id="zone-6"
+            data-level="6"
+            data-completed="false"
+            style="left: 67%; top: 40%;"
+        >
+
+            <div class="zone-number">
+                7
+            </div>
+
+            <div class="zone-icon">
+                🧩
+            </div>
+
+            <div class="zone-name">
+                Conjuntos
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             ZONA 8
+        ================================================= -->
+
+        <div
+            class="zone active-zone"
+            id="zone-7"
+            data-level="7"
+            data-completed="false"
+            style="left: 5%; top: 72%;"
+        >
+
+            <div class="zone-number">
+                8
+            </div>
+
+            <div class="zone-icon">
+                💾
+            </div>
+
+            <div class="zone-name">
+                RAM / ROM
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             ZONA 9
+        ================================================= -->
+
+        <div
+            class="zone active-zone"
+            id="zone-8"
+            data-level="8"
+            data-completed="false"
+            style="left: 36%; top: 72%;"
+        >
+
+            <div class="zone-number">
+                9
+            </div>
+
+            <div class="zone-icon">
+                🗑️
+            </div>
+
+            <div class="zone-name">
+                LRU / FIFO
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             ZONA 10
+        ================================================= -->
+
+        <div
+            class="zone active-zone"
+            id="zone-9"
+            data-level="9"
+            data-completed="false"
+            style="left: 67%; top: 72%;"
+        >
+
+            <div class="zone-number">
+                10
+            </div>
+
+            <div class="zone-icon">
+                🤖
+            </div>
+
+            <div class="zone-name">
+                Caché en IA
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             ZONA SECRETA
+        ================================================= -->
+
+        <div
+            id="secretZone"
+            class="zone secret-zone locked-zone"
+        >
+
+            <div class="zone-icon">
+                🔒
+            </div>
+
+            <div class="zone-name">
+                ZONA SECRETA
+            </div>
+
+            <div
+                id="secretStatus"
+                class="secret-status"
+            >
+                COMPLETA LAS 10
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =================================================
+         CONTROLES
+    ================================================= -->
+
+    <div class="controls">
+
+
+        <button
+            class="control"
+            onmousedown="startMove('up')"
+            onmouseup="stopMove()"
+            onmouseleave="stopMove()"
+            ontouchstart="startMove('up')"
+            ontouchend="stopMove()"
+        >
+            ↑
+        </button>
+
+
+        <div class="middle-controls">
+
+
+            <button
+                class="control"
+                onmousedown="startMove('left')"
+                onmouseup="stopMove()"
+                onmouseleave="stopMove()"
+                ontouchstart="startMove('left')"
+                ontouchend="stopMove()"
+            >
+                ←
+            </button>
+
+
+            <button
+                class="control"
+                onclick="stopMove()"
+            >
+                ⏹
+            </button>
+
+
+            <button
+                class="control"
+                onmousedown="startMove('right')"
+                onmouseup="stopMove()"
+                onmouseleave="stopMove()"
+                ontouchstart="startMove('right')"
+                ontouchend="stopMove()"
+            >
+                →
+            </button>
+
+        </div>
+
+
+        <button
+            class="control"
+            onmousedown="startMove('down')"
+            onmouseup="stopMove()"
+            onmouseleave="stopMove()"
+            ontouchstart="startMove('down')"
+            ontouchend="stopMove()"
+        >
+            ↓
+        </button>
+
+
+    </div>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     MODAL DE PREGUNTAS
+===================================================== -->
+
+<div
+    id="questionModal"
+    class="modal"
+>
+
+    <div class="question-box">
+
+
+        <div class="question-header">
+
+            <span id="questionLevel">
+                Zona
+            </span>
+
+
+            <span id="questionPoints">
+                +100
+            </span>
+
+        </div>
+
+
+        <h2 id="questionText">
+            Pregunta
+        </h2>
+
+
+        <div id="answers"></div>
+
+
+        <div id="questionFeedback"></div>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     MODAL EXPLICACIÓN
+===================================================== -->
+
+<div
+    id="explanationModal"
+    class="modal"
+>
+
+    <div class="explanation-box">
+
+
+        <div id="resultIcon">
+            ✅
+        </div>
+
+
+        <h2 id="resultTitle">
+            ¡Correcto!
+        </h2>
+
+
+        <p id="explanationText">
+            Explicación
+        </p>
+
+
+        <button
+            onclick="closeExplanation()"
+            class="main-button"
+        >
+            VOLVER AL MAPA
+        </button>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     GAME OVER
+===================================================== -->
+
+<div
+    id="gameOver"
+    class="screen"
+>
+
+    <div class="end-box">
+
+
+        <div class="end-icon">
+            💾
+        </div>
+
+
+        <h1>
+            GAME OVER
+        </h1>
+
+
+        <p>
+            Te quedaste sin vidas.
+        </p>
+
+
+        <div class="final-score">
+
+            Puntuación:
+
+            <strong id="gameOverScore">
+                0
+            </strong>
+
+        </div>
+
+
+        <button
+            onclick="startGame()"
+            class="main-button"
+        >
+            🔄 VOLVER A JUGAR
+        </button>
+
+
+        <button
+            onclick="backToMenu()"
+            class="secondary-button"
+        >
+            🏠 MENÚ
+        </button>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     VICTORIA
+===================================================== -->
+
+<div
+    id="victory"
+    class="screen"
+>
+
+    <div class="end-box victory-box">
+
+
+        <div class="end-icon">
+            🏆
+        </div>
+
+
+        <h1>
+            ¡CACHE MASTER!
+        </h1>
+
+
+        <p>
+            Completaste las 10 zonas y la zona secreta.
+        </p>
+
+
+        <div class="final-score">
+
+            Puntuación final:
+
+            <strong id="finalScore">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="final-message">
+
+            🧠 ¡Dominaste los fundamentos
+            de la memoria caché!
+
+        </div>
+
+
+        <button
+            onclick="startGame()"
+            class="main-button"
+        >
+            🔄 JUGAR DE NUEVO
+        </button>
+
+
+        <button
+            onclick="backToMenu()"
+            class="secondary-button"
+        >
+            🏠 MENÚ
+        </button>
+
+
+    </div>
+
+</div>
+
+
+
+<script src="game.js"></script>
+
+</body>
+
+</html>
