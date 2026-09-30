@@ -1,0 +1,1141 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    background: #07111f;
+
+    color: white;
+
+    min-height: 100vh;
+
+    overflow-x: hidden;
+}
+
+
+/* =====================================================
+   PANTALLAS
+===================================================== */
+
+.screen {
+
+    display: none;
+
+    min-height: 100vh;
+
+    width: 100%;
+}
+
+
+.screen.active {
+
+    display: flex;
+}
+
+
+/* =====================================================
+   MENÚ
+===================================================== */
+
+#menu {
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #173d65,
+            #07111f 65%
+        );
+}
+
+
+.logo {
+
+    text-align: center;
+
+    margin-bottom: 35px;
+}
+
+
+.logo-icon {
+
+    font-size: 70px;
+
+    margin-bottom: 10px;
+}
+
+
+.logo h1 {
+
+    font-size: 55px;
+
+    letter-spacing: 4px;
+
+    color: #00eaff;
+
+    text-shadow:
+        0 0 20px #00eaff;
+}
+
+
+.logo p {
+
+    color: #a9c5d8;
+
+    margin-top: 10px;
+
+    font-size: 18px;
+}
+
+
+.menu-box {
+
+    width: 350px;
+
+    max-width: 90%;
+
+    text-align: center;
+}
+
+
+.main-button,
+.secondary-button {
+
+    width: 100%;
+
+    padding: 16px;
+
+    margin: 8px 0;
+
+    border-radius: 12px;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    border: none;
+}
+
+
+.main-button {
+
+    background: #00d9ff;
+
+    color: #04111d;
+}
+
+
+.main-button:hover {
+
+    background: #4eeaff;
+
+    transform: scale(1.02);
+}
+
+
+.secondary-button {
+
+    background: #17283b;
+
+    color: white;
+
+    border: 1px solid #36536d;
+}
+
+
+.secondary-button:hover {
+
+    background: #213b52;
+}
+
+
+.best-score {
+
+    margin-top: 25px;
+
+    color: #b9d0df;
+}
+
+
+/* =====================================================
+   INSTRUCCIONES
+===================================================== */
+
+#instructions {
+
+    justify-content: center;
+
+    align-items: center;
+
+    background: #07111f;
+}
+
+
+.instructions-box {
+
+    width: 600px;
+
+    max-width: 92%;
+
+    padding: 30px;
+
+    border-radius: 20px;
+
+    background: #102337;
+}
+
+
+.instructions-box h2 {
+
+    color: #00eaff;
+
+    margin-bottom: 20px;
+}
+
+
+.instructions-box p {
+
+    line-height: 1.6;
+
+    margin-bottom: 20px;
+
+    color: #c8d8e4;
+}
+
+
+.instruction-list div {
+
+    padding: 12px;
+
+    margin: 6px 0;
+
+    background: #172f46;
+
+    border-radius: 8px;
+}
+
+
+/* =====================================================
+   JUEGO
+===================================================== */
+
+#game {
+
+    flex-direction: column;
+
+    align-items: center;
+
+    background: #07111f;
+}
+
+
+.top-bar {
+
+    width: 100%;
+
+    min-height: 65px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 10px 25px;
+
+    background: #0c1c2d;
+
+    border-bottom: 1px solid #24445d;
+}
+
+
+.game-title {
+
+    color: #00eaff;
+
+    font-weight: bold;
+
+    font-size: 20px;
+}
+
+
+.stats {
+
+    display: flex;
+
+    gap: 20px;
+
+    font-weight: bold;
+}
+
+
+.level-info {
+
+    width: 95%;
+
+    max-width: 1120px;
+
+    padding: 12px;
+
+    text-align: center;
+}
+
+
+.level-info h2 {
+
+    color: #00eaff;
+
+    margin-bottom: 5px;
+}
+
+
+.level-info p {
+
+    color: #b5c7d4;
+
+    font-size: 14px;
+}
+
+
+.progress-container {
+
+    width: 100%;
+
+    height: 8px;
+
+    margin-top: 12px;
+
+    border-radius: 10px;
+
+    background: #182d40;
+
+    overflow: hidden;
+}
+
+
+#progressBar {
+
+    width: 0%;
+
+    height: 100%;
+
+    background: #00eaff;
+
+    transition: width 0.4s;
+}
+
+
+/* =====================================================
+   MAPA
+===================================================== */
+
+#gameArea {
+
+    position: relative;
+
+    width: 92%;
+
+    max-width: 1120px;
+
+    height: 590px;
+
+    border: 4px solid #1d526d;
+
+    border-radius: 24px;
+
+    overflow: hidden;
+
+
+    background:
+
+        linear-gradient(
+            #0d2538 1px,
+            transparent 1px
+        ),
+
+        linear-gradient(
+            90deg,
+            #0d2538 1px,
+            transparent 1px
+        );
+
+
+    background-size: 50px 50px;
+
+
+    box-shadow:
+
+        inset 0 0 50px
+        rgba(0, 200, 255, 0.1),
+
+        0 0 25px
+        rgba(0, 200, 255, 0.15);
+}
+
+
+/* =====================================================
+   JUGADOR
+===================================================== */
+
+#player {
+
+    position: absolute;
+
+    width: 45px;
+
+    height: 45px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    font-size: 32px;
+
+    left: 50%;
+
+    top: auto;
+
+    z-index: 20;
+
+    transition:
+        left 0.08s,
+        top 0.08s;
+
+    user-select: none;
+}
+
+
+/* =====================================================
+   ZONAS
+===================================================== */
+
+.zone {
+
+    position: absolute;
+
+    width: 135px;
+
+    height: 95px;
+
+    border-radius: 16px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    z-index: 10;
+
+    transition:
+        opacity 0.4s,
+        transform 0.2s,
+        background 0.3s;
+}
+
+
+/* =====================================================
+   ZONAS ACTIVAS
+===================================================== */
+
+.active-zone {
+
+    border: 3px dashed #00eaff;
+
+    background:
+        rgba(0, 234, 255, 0.08);
+
+    box-shadow:
+        0 0 18px
+        rgba(0, 234, 255, 0.45);
+
+    animation:
+        zonePulse 2s infinite;
+}
+
+
+.active-zone:hover {
+
+    transform: scale(1.04);
+}
+
+
+@keyframes zonePulse {
+
+    0% {
+
+        box-shadow:
+            0 0 8px
+            rgba(0, 234, 255, 0.35);
+
+    }
+
+    50% {
+
+        box-shadow:
+            0 0 25px
+            rgba(0, 234, 255, 0.7);
+
+    }
+
+    100% {
+
+        box-shadow:
+            0 0 8px
+            rgba(0, 234, 255, 0.35);
+
+    }
+
+}
+
+
+/* =====================================================
+   NÚMERO DE ZONA
+===================================================== */
+
+.zone-number {
+
+    position: absolute;
+
+    top: 5px;
+
+    left: 8px;
+
+    width: 24px;
+
+    height: 24px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #00eaff;
+
+    color: #06131f;
+
+    font-weight: bold;
+
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   ICONO
+===================================================== */
+
+.zone-icon {
+
+    font-size: 30px;
+
+    line-height: 1;
+}
+
+
+/* =====================================================
+   NOMBRE
+===================================================== */
+
+.zone-name {
+
+    margin-top: 6px;
+
+    color: #00eaff;
+
+    font-weight: bold;
+
+    font-size: 12px;
+
+    padding: 0 5px;
+}
+
+
+/* =====================================================
+   ZONA COMPLETADA
+===================================================== */
+
+.completed-zone {
+
+    background:
+        rgba(50, 70, 80, 0.55);
+
+    border: 3px solid #344a58;
+
+    box-shadow: none;
+
+    opacity: 0.45;
+
+    animation: none;
+
+    filter: grayscale(1);
+}
+
+
+.completed-zone .zone-number {
+
+    background: #586a75;
+
+    color: white;
+}
+
+
+.completed-zone .zone-name {
+
+    color: #788d99;
+}
+
+
+/* =====================================================
+   ZONA SECRETA
+===================================================== */
+
+.secret-zone {
+
+    left: 43%;
+
+    top: 56%;
+
+    width: 170px;
+
+    height: 105px;
+
+    border-radius: 18px;
+
+    z-index: 5;
+
+    background:
+        rgba(100, 40, 130, 0.08);
+
+    border: 3px dashed #69467d;
+
+    color: #9b7aa8;
+
+    box-shadow: none;
+
+    animation: none;
+}
+
+
+.secret-zone .zone-name {
+
+    color: #9b7aa8;
+}
+
+
+.secret-status {
+
+    font-size: 9px;
+
+    margin-top: 5px;
+
+    color: #77657e;
+}
+
+
+/* =====================================================
+   ZONA SECRETA DESBLOQUEADA
+===================================================== */
+
+.secret-zone.unlocked {
+
+    border-color: #ff4de1;
+
+    background:
+        rgba(255, 40, 210, 0.10);
+
+    box-shadow:
+        0 0 20px
+        rgba(255, 40, 210, 0.5);
+
+    animation:
+        secretPulse 1.5s infinite;
+}
+
+
+.secret-zone.unlocked .zone-name {
+
+    color: #ff62e6;
+}
+
+
+.secret-zone.unlocked .secret-status {
+
+    color: #ff62e6;
+}
+
+
+@keyframes secretPulse {
+
+    0% {
+
+        box-shadow:
+            0 0 10px
+            rgba(255, 40, 210, 0.3);
+
+    }
+
+    50% {
+
+        box-shadow:
+            0 0 35px
+            rgba(255, 40, 210, 0.8);
+
+    }
+
+    100% {
+
+        box-shadow:
+            0 0 10px
+            rgba(255, 40, 210, 0.3);
+
+    }
+
+}
+
+
+/* =====================================================
+   CONTROLES
+===================================================== */
+
+.controls {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    margin-top: 12px;
+}
+
+
+.middle-controls {
+
+    display: flex;
+
+    gap: 10px;
+}
+
+
+.control {
+
+    width: 60px;
+
+    height: 52px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: #17364d;
+
+    color: white;
+
+    font-size: 25px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    user-select: none;
+
+    touch-action: manipulation;
+}
+
+
+.control:hover {
+
+    background: #22536e;
+}
+
+
+.control:active {
+
+    background: #00aeca;
+
+    transform: scale(0.95);
+}
+
+
+/* =====================================================
+   MODALES
+===================================================== */
+
+.modal {
+
+    display: none;
+
+    position: fixed;
+
+    left: 0;
+
+    top: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    background:
+        rgba(0, 0, 0, 0.82);
+
+    justify-content: center;
+
+    align-items: center;
+
+    z-index: 100;
+}
+
+
+.modal.active {
+
+    display: flex;
+}
+
+
+/* =====================================================
+   PREGUNTAS
+===================================================== */
+
+.question-box,
+.explanation-box {
+
+    width: 600px;
+
+    max-width: 92%;
+
+    background: #102337;
+
+    border: 1px solid #28516c;
+
+    border-radius: 20px;
+
+    padding: 25px;
+
+    box-shadow:
+        0 0 40px
+        rgba(0, 220, 255, 0.2);
+}
+
+
+.question-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-bottom: 20px;
+
+    color: #00eaff;
+
+    font-weight: bold;
+}
+
+
+.question-box h2 {
+
+    font-size: 21px;
+
+    line-height: 1.4;
+
+    margin-bottom: 20px;
+}
+
+
+.answer-button {
+
+    width: 100%;
+
+    padding: 14px;
+
+    margin: 6px 0;
+
+    background: #17344b;
+
+    color: white;
+
+    border: 1px solid #315a73;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    text-align: left;
+
+    font-size: 15px;
+}
+
+
+.answer-button:hover {
+
+    background: #22516d;
+}
+
+
+.answer-button.correct {
+
+    background: #145b43;
+
+    border-color: #24d99a;
+}
+
+
+.answer-button.incorrect {
+
+    background: #642d35;
+
+    border-color: #ff6b6b;
+}
+
+
+#questionFeedback {
+
+    margin-top: 15px;
+
+    font-weight: bold;
+}
+
+
+/* =====================================================
+   EXPLICACIÓN
+===================================================== */
+
+.explanation-box {
+
+    text-align: center;
+}
+
+
+#resultIcon {
+
+    font-size: 60px;
+
+    margin-bottom: 10px;
+}
+
+
+#resultTitle {
+
+    margin-bottom: 15px;
+}
+
+
+#explanationText {
+
+    color: #c5d5e0;
+
+    line-height: 1.6;
+
+    margin-bottom: 20px;
+}
+
+
+/* =====================================================
+   FINAL
+===================================================== */
+
+#gameOver,
+#victory {
+
+    justify-content: center;
+
+    align-items: center;
+
+    background:
+        radial-gradient(
+            circle,
+            #173d65,
+            #07111f 65%
+        );
+}
+
+
+.end-box {
+
+    width: 500px;
+
+    max-width: 90%;
+
+    padding: 35px;
+
+    text-align: center;
+
+    background: #102337;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 0 40px
+        rgba(0, 220, 255, 0.2);
+}
+
+
+.end-icon {
+
+    font-size: 70px;
+}
+
+
+.end-box h1 {
+
+    margin: 15px 0;
+
+    color: #00eaff;
+}
+
+
+.end-box p {
+
+    color: #b9cbd7;
+}
+
+
+.final-score {
+
+    font-size: 25px;
+
+    margin: 25px 0;
+}
+
+
+.final-score strong {
+
+    color: #00eaff;
+}
+
+
+.final-message {
+
+    padding: 15px;
+
+    margin-bottom: 15px;
+
+    border-radius: 10px;
+
+    background: #17344b;
+}
+
+
+/* =====================================================
+   CELULAR
+===================================================== */
+
+@media (max-width: 700px) {
+
+
+    .logo h1 {
+
+        font-size: 38px;
+
+    }
+
+
+    .top-bar {
+
+        padding: 8px 12px;
+
+    }
+
+
+    .game-title {
+
+        font-size: 14px;
+
+    }
+
+
+    .stats {
+
+        gap: 8px;
+
+        font-size: 12px;
+
+    }
+
+
+    #gameArea {
+
+        width: 96%;
+
+        height: 500px;
+
+    }
+
+
+    .zone {
+
+        width: 100px;
+
+        height: 78px;
+
+    }
+
+
+    .zone-icon {
+
+        font-size: 22px;
+
+    }
+
+
+    .zone-name {
+
+        font-size: 9px;
+
+    }
+
+
+    .zone-number {
+
+        width: 20px;
+
+        height: 20px;
+
+        font-size: 10px;
+
+    }
+
+
+    .secret-zone {
+
+        width: 130px;
+
+        height: 88px;
+
+        left: 40%;
+
+        top: 56%;
+
+    }
+
+
+    .control {
+
+        width: 55px;
+
+        height: 50px;
+
+    }
+
+}
